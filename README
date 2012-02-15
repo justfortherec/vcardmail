@@ -1,0 +1,149 @@
+This is an extension for typo3's new form-wizard (introduced in v4.6).
+A vcard containing details sent by form is attached to the mail.
+
+Use as form_postprocessor:
+
+ * Log into backend.
+ * Select site to create form.
+ * Insert new form-plugin.
+ * Create form
+ 	+ either by using the form wizard,
+ 	+ or by using typoscript (see example below).
+ * Set postProcessor.X to 'tx_postprocessorinterfacetest_postprocessor'
+
+postProcessor {
+	1 = tx_vcardmail
+	1 {
+		recipientEmail = foo@bar.com
+		senderEmail = bar@foo.com
+		# version can either be 2.1 or 3.0. Defaults to 2.1.
+		version = 2.1
+		properties {
+
+	# A vCard must only have one of the following properties each.
+	# Tha declaration numbered highest overrides earlier declarations.
+	# Set .field to the name of the field.
+			1 = FULLNAME
+			1.field = name
+			2 = TITLE
+			2.field = title-field
+			3 = LASTNAME
+			3.field = lastname-field
+			4 = FIRSTNAME
+			4.field = firstname-field
+			5 = ADDITIONALNAMES
+			5.field = additionalnames-field
+			6 = NICKNAME
+			6.field = nickname-field
+			7 = NAMEPREFIX
+			7.field = nameprefix-field
+			8 = NAMESUFFIX
+			8.field = namesuffix-field
+			9 = BIRTHDAY
+			9.field = birthday-field
+			# format	date-conf	The format of the submitted data.\nSee the PHP-manual (date) for the codes, or datatype "date-conf" in the TYPO3 document TSref.	d-m-Y
+			9.format = d-m-Y
+			10 = ORGANIZATION
+			10.field = organization-field
+			11 = DEPARTMENT
+			11.field = department-field
+			12 = SUBDEPARTMENT
+			12.field = subdepartment-field
+			13 = ROLE
+			13.field = role-field
+			# if REVISION is not set current date and time will be used.
+			14 = REVISION
+			14.field = revision-field
+			# format	strftime-conf	The format of the submitted data.\nSee the PHP-manual (date) for the codes, or datatype "date-conf" in the TYPO3 document TSref.	d-m-Y  H:i:s
+			14.format = d-m-Y H:i:s
+			16 = GENDER
+			16.field = gender-field
+			17 = GEOLOCATION
+			17.field = location-field
+			18 = MAILER
+			18.field = mailer-field
+			# This property is specified in a manner consistent with ISO 8601. The property value is a signed numeric indicating the number of hours and possibly minutes from UTC. Time zones east of UTC are positive numbers. Time zones west of UTC are negative numbers.
+			19 = TIMEZONE
+			19.field = timezone-field
+			20 = UID
+			20.field = uid-field
+			
+	# A vCard can have multiple entries of the following properties.
+	# Set .field to the name of the field.
+	# .type can have none to many entries.
+			21 = ADDRESS
+			21 {
+				city = city-field
+				state = state-field
+				zip = zipcode-field
+				street = street-field
+				country = country-field
+				extendedaddress = extendedaddress-field
+				postofficeaddress = postofficeaddress-field
+				type {
+					# allowed types for an address are:
+					1 = DOM
+					2 = INTL
+					3 = POSTAL
+					4 = PARCEL
+					5 = HOME
+					6 = WORK
+				}
+			}
+			22 = EMAIL
+			22 {
+				field = email
+				type {
+					# allowed types for an e-mail-address are:
+					1 = INTERNET
+					2 = WORK
+					3 = HOME
+					4 = OTHER
+					5 = PREF
+				}
+			}
+			23 = PHONENUMBER
+			23 {
+				field = telephone-field
+				type {
+					# allowed types for a telephone number are:
+					1 = WORK
+					2 = HOME
+					3 = OTHER
+					4 = PREF
+					5 = VOICE
+					6 = FAX
+					7 = MSG
+					8 = CELL
+					9 = CAR
+				}
+			}
+			24 = URL
+			24 {
+				field = url-field
+				type {
+					# allowed types for an URL are:
+					1 = WORK
+					2 = HOME
+					3 = OTHER
+					4 = PREF
+				}
+			}
+			25 = INSTANTMESSENGER
+			25 {
+				field = im-field
+				# .messenger can be any out of:
+				# x-AIM, X-ICQ, X-JABBER, X-MSN, X-YAHOO, X-SKYPE, X-SKYPE-USERNAME, X-GADUGADU
+				messenger = X-JABBER
+				type {
+					# allowed types for an IM-entry are:
+					1 = WORK
+					2 = HOME
+					3 = OTHER
+					4 = PREF
+				}
+			}
+		}
+	}
+}
+
