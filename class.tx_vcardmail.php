@@ -29,6 +29,7 @@
  * @author Franz Geiger <mail@fx-g.de>
  */
 class tx_vcardmail extends tx_form_System_Postprocessor_Mail implements tx_form_System_Postprocessor_Interface {
+
 	/** 
 	 * Version of the vCard. Must be either 2.1 or 3.0. Defaults to 2.1
 	 *
@@ -78,6 +79,7 @@ class tx_vcardmail extends tx_form_System_Postprocessor_Mail implements tx_form_
 	 * @var string
 	 */
 	const DEFAULT_REV_INPUT_FORMAT = 'd-m-Y H:i:s';
+
 
 	/**
 	 * Add attachments when uploaded. Overrides the inherited function in
