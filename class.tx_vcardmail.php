@@ -1,8 +1,9 @@
 <?php
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Franz Geiger <mail@fx-g.de>
+ *  (c) 2012-2013 Franz Geiger <mail_at_fx-g.de>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,9 +27,9 @@
  * A postprocessor extending the mail postprocessor by attaching entered
  * contact details as a vCard.
  *
- * @author Franz Geiger <mail@fx-g.de>
+ * @author Franz Geiger <mail_at_fx-g.de>
  */
-class tx_vcardmail extends tx_form_System_Postprocessor_Mail implements tx_form_System_Postprocessor_Interface {
+class tx_vcardmail extends \TYPO3\CMS\Form\PostProcess\MailPostProcessor implements \TYPO3\CMS\Form\PostProcess\PostProcessorInterface {
 
 	/** 
 	 * Version of the vCard. Must be either 2.1 or 3.0. Defaults to 2.1
@@ -104,7 +105,7 @@ class tx_vcardmail extends tx_form_System_Postprocessor_Mail implements tx_form_
 	 * @return void
 	 */
 	protected function addVcardAttachment($submittedValues) {
-		$this->vcard = t3lib_div::makeInstance('tx_vcardmail_vcard');
+		$this->vcard = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_vcardmail_vcard');
 
 		// version can be eiter 2.1 (default) or 3.0
 		if ($this->typoScript['version'] == tx_vcardmail_vcard::VERSION30) {
@@ -143,7 +144,7 @@ class tx_vcardmail extends tx_form_System_Postprocessor_Mail implements tx_form_
 	 */
 	protected function generateVcardFromTyposcript($typoscript, $submittedValues) {
 
-		$keys = t3lib_TStemplate::sortedKeyList($typoscript);
+		$keys =  \TYPO3\CMS\Core\TypoScript\TemplateService::sortedKeyList($typoscript);
 
 		foreach ($keys as $propertyKey) {
 			if (!intval($propertyKey) || strpos($propertyKey, '.') !== FALSE) {
@@ -174,7 +175,7 @@ class tx_vcardmail extends tx_form_System_Postprocessor_Mail implements tx_form_
 		// If REVISION is not set yet: set to current time
 		if ($this->vcard->__get('revision') === NULL) {
 
-			$revisionDate = t3lib_div::makeInstance('DateTime');
+			$revisionDate = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('DateTime');
 			$this->vcard->setRevision($revisionDate->format(self::REV_FORMAT));
 		}
 	}
@@ -189,7 +190,7 @@ class tx_vcardmail extends tx_form_System_Postprocessor_Mail implements tx_form_
 		$types = array();
 		// Types are mapped to this entry by typoscript
 		// (e.g. postProcessor.1.properties.1.type.1 = WORK)
-		$typeKeys = t3lib_TStemplate::sortedKeyList($typeArray);
+		$typeKeys = \TYPO3\CMS\Core\TypoScript\TemplateService::sortedKeyList($typeArray);
 
 		foreach ($typeKeys as $typeKey) {
 			if (!intval($typeKey) || strpos($typeKey, '.') !== FALSE) {

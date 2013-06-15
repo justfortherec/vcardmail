@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Changes by: Franz Geiger <mail@fx-g.de>
+ * Changes by: Franz Geiger <mail_at_fx-g.de>
  * Original code is available at:
  * http://code.google.com/p/zendvcard/
  ***************************************************************/

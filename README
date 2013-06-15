@@ -9,7 +9,7 @@ Use as form_postprocessor:
  * Create form
  	+ either by using the form wizard,
  	+ or by using typoscript (see example below).
- * Set postProcessor.X to 'tx_postprocessorinterfacetest_postprocessor'
+ * Set postProcessor.X to 'tx_vcardmail'
 
 postProcessor {
 	1 = tx_vcardmail
