@@ -1,3 +1,7 @@
-2012-03-05 Franz Geiger  <mail@fx-g.de>
+2013-06-15 Franz Geiger  <mail_at_fx-g.de>
+
+	* Introduce namespaces. Make vcardmail ready for TYPO3 6
+
+2012-03-05 Franz Geiger  <mail_at_fx-g.de>
 
 	* initial code generated with kickstarter
